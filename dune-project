@@ -10,8 +10,8 @@
 
 (package
  (name whooie)
- (synopsis "CHANGEME")
- (description "CHANGEME")
+ (synopsis "Personal library.")
+ (description "Collection of definitions for my own personal use.")
  (depends
   ocaml
   dune
