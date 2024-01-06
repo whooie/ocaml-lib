@@ -1,7 +1,7 @@
 (** Rust-like [result] functions. *)
 
 (** Raised when an {{!Error} [Error]} variant is unwrapped. *)
-exception Unwrap
+exception Unwrap of string
 
 (** Raised by the [expect] and [expect_err] functions. *)
 exception Expect of string
@@ -55,7 +55,7 @@ val unwrap_or_else : ('e -> 'a) -> ('a, 'e) result -> 'a
 
 (** [unwrap res] is [r] if [res] is [Ok r], otherwise [Unwrap_err] is raised.
     *)
-val unwrap : ('a, 'e) result -> 'a
+val unwrap : ?msg:('e -> string) -> ('a, 'e) result -> 'a
 
 (** [expect msg res] is [r] if [res] is [Ok r], otherwise [Expect msg] is
     raised. *)

@@ -1,4 +1,4 @@
-exception Unwrap
+exception Unwrap of string
 
 exception Expect of string
 
@@ -80,10 +80,10 @@ let unwrap_or_else (f: 'e -> 'a) (res: ('a, 'e) result): 'a =
   | Ok r -> r
   | Error e -> f e
 
-let unwrap (res: ('a, 'e) result): 'a =
+let unwrap ?(msg: 'e -> string = (fun _ -> "")) (res: ('a, 'e) result): 'a =
   match res with
   | Ok r -> r
-  | Error _ -> raise Unwrap
+  | Error e -> raise (Unwrap (msg e))
 
 let expect (msg: string) (res: ('a, 'e) result): 'a =
   match res with
