@@ -1,10 +1,22 @@
 (** Rust-like [result] functions. *)
 
-(** Raised when an {{!Error} [Error]} variant is unwrapped. *)
+(** Raised when an [Error] variant is unwrapped. *)
 exception Unwrap of string
 
 (** Raised by the [expect] and [expect_err] functions. *)
 exception Expect of string
+
+(** [is_ok res] is [true] if [res] is [Ok _], otherwise [false]. *)
+val is_ok : ('a, 'e) result -> bool
+
+(** [is_ok_and f res] is [f r] if [res] is [Ok r], otherwise [false]. *)
+val is_ok_and : ('a -> bool) -> ('a, 'e) result -> bool
+
+(** [is_err res] is [true] if [res] is [Error _], otherwise [false]. *)
+val is_err : ('a, 'e) result -> bool
+
+(** [is_err_and f res] is [f e] if [res] is [Error e], otherwise [false]. *)
+val is_err_and : ('e -> bool) -> ('a, 'e) result -> bool
 
 (** [get_ok res] is [Some r] if [res] is [Ok r], otherwise [None]. *)
 val get_ok : ('a, 'e) result -> 'a option
@@ -53,8 +65,8 @@ val unwrap_or : 'a -> ('a, 'e) result -> 'a
     [res] is [Err e]. *)
 val unwrap_or_else : ('e -> 'a) -> ('a, 'e) result -> 'a
 
-(** [unwrap res] is [r] if [res] is [Ok r], otherwise [Unwrap_err] is raised.
-    *)
+(** [unwrap ~msg res] is [r] if [res] is [Ok r], otherwise [Unwrap_err] is
+    raised. *)
 val unwrap : ?msg:('e -> string) -> ('a, 'e) result -> 'a
 
 (** [expect msg res] is [r] if [res] is [Ok r], otherwise [Expect msg] is

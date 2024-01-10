@@ -2,6 +2,26 @@ exception Unwrap of string
 
 exception Expect of string
 
+let is_ok (res: ('a, 'e) result): bool =
+  match res with
+  | Ok _ -> true
+  | Error _ -> false
+
+let is_ok_and (f: 'a -> bool) (res: ('a, 'e) result): bool =
+  match res with
+  | Ok r -> f r
+  | Error _ -> false
+
+let is_err (res: ('a, 'e) result): bool =
+  match res with
+  | Ok _ -> false
+  | Error _ -> true
+
+let is_err_and (f: 'e -> bool) (res: ('a, 'e) result): bool =
+  match res with
+  | Ok _ -> false
+  | Error e -> f e
+
 let get_ok (res: ('a, 'e) result): 'a option =
   match res with
   | Ok r -> Some r
