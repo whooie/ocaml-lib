@@ -79,3 +79,11 @@ val unwrap : ?msg:string -> 'a option -> 'a
     [Expect msg]} is raised. *)
 val expect : string -> 'a option -> 'a
 
+(** [collect_list items] is [Some its] if all elements of [items] are [Some _],
+    otherwise [None]. *)
+val collect_list : 'a option list -> 'a list option
+
+(** [collect_list_of_seq items] is like [collect_list items], but for a
+    sequence. *)
+val collect_list_of_seq : 'a option Seq.t -> 'a list option
+

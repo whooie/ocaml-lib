@@ -108,3 +108,21 @@ let expect (msg: string) (opt: 'a option): 'a =
   | Some a -> a
   | None -> raise (Expect msg)
 
+let rec collect_list (items: 'a option list): 'a list option =
+  match items with
+  | [] -> Some []
+  | None :: _ -> None
+  | (Some item) :: tail ->
+      match collect_list tail with
+      | None -> None
+      | Some rec_res -> Some (item :: rec_res)
+
+let rec collect_list_of_seq (items: 'a option Seq.t): 'a list option =
+  match items () with
+  | Seq.Nil -> Some []
+  | Seq.Cons (None, _) -> None
+  | Seq.Cons (Some item, rest) ->
+      match collect_list_of_seq rest with
+      | None -> None
+      | Some rec_res -> Some (item :: rec_res)
+
