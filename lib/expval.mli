@@ -1,3 +1,6 @@
+(** Implements a real value associated with an experimental error that is
+    automatically propagated through various operations. *)
+
 (** Main data type. Each value of this type is a number ([v]) associated with a
     positive-valued error ([e]). *)
 type t = private { v: float; e: float }
