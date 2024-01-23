@@ -286,3 +286,27 @@ module Make (E: Error) = struct
         | Ok rec_res -> Ok (item :: rec_res)
 end
 
+module type RR = sig
+  module Res1 : sig
+    type 'a t
+    type err
+  end
+
+  module Res2 : sig
+    type 'a t
+    type err
+  end
+
+  val map_err : (Res1.err -> Res2.err) -> 'a Res1.t -> 'a Res2.t
+end
+
+module Make2 (E1: Error) (E2: Error) = struct
+  module Res1 = Make(E1)
+  module Res2 = Make(E2)
+
+  let map_err (f: Res1.err -> Res2.err) (res: 'a Res1.t): 'a Res2.t =
+    match res with
+    | Res1.Ok r -> Res2.Ok r
+    | Res1.Err e -> Res2.Err (f e)
+end
+

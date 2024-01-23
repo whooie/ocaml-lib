@@ -181,3 +181,25 @@ end
     type. *)
 module Make (E: Error): R with type err = E.t
 
+(** Output signature of the functor {!Make2}. *)
+module type RR = sig
+  module Res1 : sig
+    type 'a t
+    type err
+  end
+
+  module Res2 : sig
+    type 'a t
+    type err
+  end
+
+  (** Call a mapping function on the error value of a {!Res1.t}, producing a
+      {!Res2.t}. *)
+  val map_err : (Res1.err -> Res2.err) -> 'a Res1.t -> 'a Res2.t
+end
+
+(** Functor to implement a [map_err] function that maps between error types
+    satisfying the {!Error} signature. *)
+module Make2 (E1: Error) (E2: Error): RR
+  with module Res1 = Make(E1) and module Res2 = Make(E2)
+
