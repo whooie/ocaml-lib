@@ -94,7 +94,7 @@ end
 
 module Rabi = struct
   let freq_to_saturation (linewidth: float) (rabi_freq: float): float =
-    (rabi_freq /. linewidth) ** 2.0
+    2.0 *. (rabi_freq /. linewidth) ** 2.0
 
   let saturation_to_freq (linewidth: float) (saturation: float): float =
     (Float.sqrt (saturation /. 2.0)) *. linewidth
@@ -169,8 +169,8 @@ module Spin = struct
       let msg =
         Printf.sprintf
           "spin projection %s must not exceed total %s in magnitude"
-          (SpinTotal.to_string tot)
           (SpinProj.to_string proj)
+          (SpinTotal.to_string tot)
       in
       Error (Invalid_proj msg)
     else

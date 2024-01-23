@@ -126,7 +126,7 @@ module SpinProj: sig
   (** Main type. *)
   type t
 
-  (** Create a new [t]. *)
+  (** Create a new [t] from a number of half-spin quanta. *)
   val create : int -> t
 
   (** [refl m] flips the sign of a projection number. *)
