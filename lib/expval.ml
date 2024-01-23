@@ -115,9 +115,9 @@ let neq (ev: t) (ev': t): bool = ev.v != ev'.v
 
 let compare (ev: t) (ev': t): int = Float.compare ev.v ev'.v
 
-let ge (ev: t) (ev': t): bool = compare ev ev' > 0
+let gt (ev: t) (ev': t): bool = compare ev ev' > 0
 
-let le (ev: t) (ev': t): bool = compare ev ev' < 0
+let lt (ev: t) (ev': t): bool = compare ev ev' < 0
 
 let geq (ev: t) (ev': t): bool = compare ev ev' >= 0
 

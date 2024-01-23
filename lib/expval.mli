@@ -57,11 +57,11 @@ val compare : t -> t -> int
 
 (** Return [true] if the value of the left argument is greater than the value of
     the right argument, otherwise [false]. *)
-val ge : t -> t -> bool
+val gt : t -> t -> bool
 
 (** Return [true] if the value of the left argument is less than the value of
     the right argument, otherwise [false]. *)
-val le : t -> t -> bool
+val lt : t -> t -> bool
 
 (** Return [true] if the value of the left argument is greater than or equal to
     the value of the right argument, otherwise [false]. *)
